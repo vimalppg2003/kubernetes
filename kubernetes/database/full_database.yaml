@@ -5,9 +5,9 @@ metadata:
   name: mysql-secret
 type: Opaque
 stringData:i
-  MYSQL_USER: "myuser"
-  MYSQL_PASSWORD: "MyPassword@123"
-  MYSQL_ROOT_PASSWORD: "Root@12345"
+  MYSQL_USER: bXlzcWwK                        # mysql
+  MYSQL_PASSWORD: c3FsMTIzCg==                # sql123
+  MYSQL_ROOT_PASSWORD: cm9vdEAxMjMK           #root@123
 
 ---
 # PersistentVolume
@@ -46,12 +46,12 @@ kind: Deployment
 metadata:
   name: mysql-deployment
 spec:
-  replicas: 1
+  replicas: 2
 
   selector:
     matchLabels:
       app: mysql
-
+      
   template:
     metadata:
       labels:
@@ -65,7 +65,7 @@ spec:
           ports:
             - containerPort: 3306
             
-             # Resource requests and limits
+           # Resource requests and limits
           resources:
             requests:
               cpu: "250m"
@@ -74,7 +74,6 @@ spec:
               cpu: "500m"
               memory: "1Gi"
            
-
           # Environment variables from Secret
           env:
             - name: MYSQL_ROOT_PASSWORD
@@ -82,13 +81,7 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: MYSQL_ROOT_PASSWORD
-
-            - name: MYSQL_DATABASE
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secret
-                  key: MYSQL_DATABASE
-
+                  
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
@@ -100,6 +93,8 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: MYSQL_PASSWORD
+            - name: MYSQL_DATABASE
+              value: dev
 
           # Persistent storage
           volumeMounts:
