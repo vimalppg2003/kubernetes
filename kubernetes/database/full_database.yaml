@@ -75,13 +75,7 @@ spec:
               memory: "1Gi"
            
           # Environment variables from Secret
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secret
-                  key: MYSQL_ROOT_PASSWORD
-                  
+          env:    
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
@@ -93,6 +87,13 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: MYSQL_PASSWORD
+                  
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+                  
             - name: MYSQL_DATABASE
               value: dev
 
