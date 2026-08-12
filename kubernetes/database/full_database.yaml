@@ -4,10 +4,10 @@ kind: Secret
 metadata:
   name: mysql-secret
 type: Opaque
-stringData:i
+data:
   MYSQL_USER: bXlzcWwK                        # mysql
   MYSQL_PASSWORD: c3FsMTIzCg==                # sql123
-  MYSQL_ROOT_PASSWORD: cm9vdEAxMjMK           #root@123
+  MYSQL_ROOT_PASSWORD: dmltYWwK               # vimal
 
 ---
 # PersistentVolume
@@ -46,7 +46,7 @@ kind: Deployment
 metadata:
   name: mysql-deployment
 spec:
-  replicas: 2
+  replicas: 1
 
   selector:
     matchLabels:
@@ -75,11 +75,17 @@ spec:
               memory: "1Gi"
            
           # Environment variables from Secret
-          env:    
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+                  
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
-                  namei: mysql-secret
+                  name: mysql-secret
                   key: MYSQL_USER
 
             - name: MYSQL_PASSWORD
@@ -87,12 +93,6 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: MYSQL_PASSWORD
-                  
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secret
-                  key: MYSQL_ROOT_PASSWORD
                   
             - name: MYSQL_DATABASE
               value: dev
