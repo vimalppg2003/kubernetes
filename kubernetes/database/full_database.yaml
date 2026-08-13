@@ -47,21 +47,17 @@ metadata:
   name: mysql-deployment
 spec:
   replicas: 1
-
   selector:
     matchLabels:
       app: mysql
-      
   template:
     metadata:
       labels:
         app: mysql
-
     spec:
       containers:
         - name: mysql
           image: mysql:8.0
-
           ports:
             - containerPort: 3306
             
@@ -81,19 +77,16 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: MYSQL_ROOT_PASSWORD
-                  
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
                   name: mysql-secret
                   key: MYSQL_USER
-
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: mysql-secret
                   key: MYSQL_PASSWORD
-                  
             - name: MYSQL_DATABASE
               value: dev
 
@@ -101,7 +94,6 @@ spec:
           volumeMounts:
             - name: mysql-storage
               mountPath: /var/lib/mysql
-
       volumes:
         - name: mysql-storage
           persistentVolumeClaim:
@@ -115,10 +107,8 @@ metadata:
   name: mysql-service
 spec:
   type: ClusterIP
-
   selector:
     app: mysql
-
   ports:
     - port: 3306
       targetPort: 3306
