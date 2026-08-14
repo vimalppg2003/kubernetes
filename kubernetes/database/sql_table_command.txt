@@ -12,4 +12,4 @@ For twesting
 
 
 INSERT INTO messages (name, email, message)
-VALUES ('Vimal', 'vimal@example.com', 'Hello');i
+VALUES ('Vimal', 'vimal@example.com', 'Hello');
