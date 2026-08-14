@@ -6,9 +6,9 @@ app = Flask(__name__)
 # MySQL connection
 db_config = {
     "host": "mysql-service",
-    "user": "myuser",
-    "password": "MyPassword@123",
-    "database": "myapp"
+    "user": "root",
+    "password": "root234",
+    "database": "BROD"
 }
 
 
