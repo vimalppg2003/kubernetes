@@ -21,8 +21,7 @@ spec:
 
       containers:
         - name: backend
-          image: YOUR_DOCKERHUB_USERNAME/python-app:1.0
-          imagePullPolicy: Always
+          image: vimal733/aug-new-image
 
           ports:
             - containerPort: 5000
@@ -51,3 +50,4 @@ spec:
     - port: 5000
       targetPort: 5000
       nodePort: 30500
+ 
