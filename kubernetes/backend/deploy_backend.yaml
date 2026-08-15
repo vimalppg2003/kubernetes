@@ -17,7 +17,7 @@ spec:
         - name: dockerhub-secret
       containers:
         - name: backend
-          image: vimal733/aug-new-image
+          image: vimal733/aug-back-image
           ports:
             - containerPort: 5000
           resources:
