@@ -21,3 +21,20 @@ kubectl create secret docker-registry dockerhub-secret \
   --docker-email=vimalkumar12770@gmail.com \
   --docker-server=https://index.docker.io/v1/ \
   --dry-run=client -o yaml
+
+
+------------------------------------------------------------------------------
+FROM python:3.12-slim
+
+WORKDIR /app
+
+RUN pip install --no-cache-dir \
+    Flask \
+    mysql-connector-python \
+    Flask-CORS
+
+COPY app.py .
+
+EXPOSE 5000
+
+CMD ["python", "-u", "app.py"]
